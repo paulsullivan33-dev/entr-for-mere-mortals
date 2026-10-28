@@ -1,0 +1,15 @@
+$ echo settings.conf | entr -rn ./ticker.sh
+ticker started: pid 67632 at 11:17:39
+  heartbeat from pid 67632 at 11:17:41
+  heartbeat from pid 67632 at 11:17:43
+
+# (settings.conf is edited: speed = normal -> speed = brisk)
+ticker started: pid 67979 at 11:17:44
+  heartbeat from pid 67979 at 11:17:46
+  heartbeat from pid 67979 at 11:17:48
+
+# (settings.conf is edited again: colour = amber -> colour = green)
+ticker started: pid 68092 at 11:17:49
+  heartbeat from pid 68092 at 11:17:51
+
+# (Ctrl-C stops both the watcher and the ticker)

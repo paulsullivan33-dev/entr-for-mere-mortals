@@ -1,0 +1,24 @@
+$ ls drafts/*.md | entr -dn echo 'watcher running -- no new files yet'
+watcher running -- no new files yet
+
+# (a new file with a dot-name is created: drafts/.hidden-draft.md)
+# (nothing happens -- with a single -d, dotfiles are ignored)
+
+# (a new ordinary file is created: drafts/chapter-four.md)
+watcher running -- no new files yet
+entr: directory altered
+
+$ echo $?
+2
+
+# The same watch with -d given twice notices dotfiles too:
+
+$ ls drafts/*.md | entr -ddn echo 'watcher running (dd)'
+watcher running (dd)
+
+# (drafts/.hidden-draft.md is created)
+watcher running (dd)
+entr: directory altered
+
+$ echo $?
+2

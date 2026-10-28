@@ -1,0 +1,32 @@
+Trap one: the editor that saves by replacing the file
+-----------------------------------------------------
+Many editors save by writing a new file and renaming it
+over the old one. entr survives this -- the watch follows
+the name, not the vanished original:
+
+$ echo notes.txt | entr -np sh -c 'echo "run at $(date +%T) -- notes.txt now has $(wc -l < notes.txt) lines"'
+# (notes.txt.new is written, then renamed over notes.txt)
+run at 11:22:52 -- notes.txt now has 2 lines
+# (the same trick a second time, with one more line)
+run at 11:22:54 -- notes.txt now has 3 lines
+
+
+Trap two: deleting the watched file outright
+---------------------------------------------
+$ echo notes.txt | entr -np sh -c 'echo "run at $(date +%T)"'
+# (notes.txt is deleted)
+entr: cannot open 'notes.txt': No such file or directory
+# (entr exits:)
+exit status: 1
+# (putting notes.txt back does not revive it --
+#  the watcher is gone and must be started again)
+
+
+Trap three: a command that edits its own watched file
+-----------------------------------------------------
+$ echo notes.txt | entr -n sh -c 'echo "run at $(date +%T)" >> runs.log; echo another-line >> notes.txt'
+# (left running for 4 seconds, then stopped)
+runs in 4 seconds: 1
+
+# The same watch with -a added:
+runs in 4 seconds with -a: 73

@@ -1,0 +1,17 @@
+$ find drafts -name '*.md'
+drafts/chapter-one.md
+drafts/chapter-three.md
+drafts/chapter-two.md
+
+$ find drafts -name '*.md' | entr -np ./build.sh /_
+# (nothing yet -- the -p flag postpones the first run)
+
+# (a paragraph is appended to drafts/chapter-two.md)
+build at 11:17:31 -- triggered by: drafts/chapter-two.md
+combined.md now holds 77 words
+
+# (a line is appended to drafts/chapter-one.md)
+build at 11:17:32 -- triggered by: drafts/chapter-one.md
+combined.md now holds 82 words
+
+# (Ctrl-C stops the watcher)

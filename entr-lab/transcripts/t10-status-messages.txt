@@ -1,0 +1,15 @@
+$ export ENTR_STATUS_SCRIPT=$PWD/status.awk
+$ echo notes.txt | entr -xp sh -c 'echo "run at $(date +%T)"; exit 7'
+entr: created '/home/hatch/.../entr-lab/status.awk'
+
+# (a line is appended to notes.txt; the command runs,
+#  and this time the run is followed by a line in words)
+run at 11:24:29
+sh returned exit code 7
+
+# (the message was formatted by the script entr created,
+#  whose heart is two awk rules:)
+#   /^signal/ { print $3, "terminated by signal", $2; }
+#   /^exit/   { print $3, "returned exit code", $2; }
+# (the folder path is shortened in this transcript --
+#  it is the lab folder wherever the lab happens to live)

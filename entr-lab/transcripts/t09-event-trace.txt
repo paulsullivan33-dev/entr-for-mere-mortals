@@ -1,0 +1,11 @@
+$ echo notes.txt | EV_TRACE=1 entr -np echo 'notes changed'
+open_max: 63753
+0/1: fflags: 0x8 r 100660 notes.txt
+0/1: fflags: 0x2 r 100660 notes.txt
+
+# (a line is appended to notes.txt)
+notes changed
+
+0/1: fflags: 0x8 r 100660 notes.txt
+
+# (Ctrl-C stops the watcher)

@@ -1,0 +1,10 @@
+$ echo notes.txt | entr sh -c 'echo "RUN at $(date +%T) -- $(wc -l < notes.txt) lines"'
+RUN at 11:20:42 -- 1 lines
+
+# (a line is appended to notes.txt)
+RUN at 11:20:44 -- 2 lines
+
+# (the space bar is pressed, with no file change at all)
+RUN at 11:20:46 -- 2 lines
+
+# (q is pressed and the watcher quits, silently and at once)

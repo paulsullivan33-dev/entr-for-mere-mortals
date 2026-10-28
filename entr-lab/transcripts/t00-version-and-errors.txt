@@ -1,0 +1,18 @@
+$ entr </dev/null
+release: 5.7
+usage: entr [-acdnprsxz] utility [argument [/_] ...] < filenames
+exit: 1
+
+$ printf "" | entr echo hello
+entr: No regular files to watch
+exit: 1
+
+$ echo missing.txt | entr -n wc -l missing.txt
+entr: unable to stat 'missing.txt'
+entr: No regular files to watch
+exit: 1
+
+$ echo notes.txt | entr wc -l notes.txt
+# (run from a script, with no terminal attached)
+entr: unable to get terminal attributes, use '-n' to run non-interactively
+exit: 1

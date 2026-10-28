@@ -1,0 +1,27 @@
+site_name: Entr for Mere Mortals
+site_description: The watcher that runs your command when a file changes. Watching lists of files, restarting a program on every save, catching new files as they land, and keeping the screen tidy, with the traps and the limits stated plainly.
+site_url: https://paulsullivan33-dev.github.io/entr-for-mere-mortals/
+copyright: 'Part of <a href="https://paulsullivan33-dev.github.io/mere-mortals/">For Mere Mortals</a> · Text <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, code MIT'
+
+# Guides live at the repo root (nice for GitHub browsing).
+# The deploy workflow copies them into docs/ before building.
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - What Entr Is: what-entr-is.md
+  - The Moving Parts: the-moving-parts.md
+  - Installing Entr: installing-entr.md
+  - Your First Watch: your-first-watch.md
+  - Feeding Entr a File List: feeding-entr-a-file-list.md
+  - Restarting a Long-Running Program: restarting-a-long-running-program.md
+  - Watching for New Files: watching-for-new-files.md
+  - Shell Commands and Pipelines: shell-commands-and-pipelines.md
+  - Keeping the Screen Tidy: keeping-the-screen-tidy.md
+  - Recipes: recipes.md
+  - The Neighbours: the-neighbours.md
+  - Limits: limits.md
+  - Troubleshooting: troubleshooting.md
+  - Glossary: glossary.md
+  - Writing Criteria: criteria.md

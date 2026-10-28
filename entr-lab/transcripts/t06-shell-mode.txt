@@ -1,0 +1,11 @@
+$ ls drafts/*.md | entr -n 'wc -w drafts/*.md | head -n 1'
+entr: exec wc -w drafts/*.md | head -n 1: No such file or directory
+# (without -s, entr looks for a program with that whole name;
+#  finding none, it reports the failure and keeps watching)
+
+$ find drafts -name '*.md' | entr -snp 'echo "changed file: ${0##*/}"; cat drafts/*.md | wc -w'
+# (nothing yet -- -p postpones the first run)
+
+# (a line is appended to drafts/chapter-three.md)
+changed file: chapter-three.md
+76

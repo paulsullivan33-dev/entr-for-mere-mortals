@@ -1,0 +1,61 @@
+The lab — one real build, one machine, nobody else's files
+====================================================================
+
+The lab is entr as its author ships it, built from the
+official release on the build machine (an Ubuntu 24.04
+sandbox, 2 CPUs, 7.7 GB RAM):
+
+  * entr 5.7 (February 2025), downloaded as the release
+    tarball from the project's GitHub (eradman/entr),
+    built in a scratch folder with ./configure and make,
+    and exercised from there — nothing installed
+    system-wide. The Ubuntu 24.04 package (entr 5.5) was
+    downloaded and extracted, not installed, and run once
+    to confirm the release and usage output.
+  * Fixtures written for the guide, in entr-lab/:
+    notes.txt (a four-line notebook), drafts/ (a
+    three-chapter story about a lighthouse keeper),
+    settings.conf (a speed and a colour), ticker.sh (a
+    tiny long-running program that prints its process id
+    and a heartbeat), build.sh (joins the drafts and
+    counts words).
+  * Every watch ran on the lab's own files, on that one
+    machine. Runs were made against scratch copies of the
+    fixtures, so the copies in this repository stay as a
+    reader would start them. Scripted runs use -n (the
+    harness has no terminal); the keyboard and
+    clear-screen sessions ran under a real terminal
+    provided by a PTY driver, with keys sent on a timer.
+
+What the lab ran, in entr-lab/transcripts/:
+
+  t00  release and usage; the startup refusals (empty
+       list, missing file, no terminal)
+  t01  a one-file watch: startup run + one run per save
+  t02  a find-built list, -p, and /_ labelling each build
+  t03  -r restart mode, proven by three process ids
+  t04  -d directory watch: dotfile ignored at -d, fatal
+       at -dd; exit status 2 both times it fired
+  t05  -cc clear screen, control bytes made visible
+  t06  a pipeline refused without -s; the same job with
+       -s and $0 naming the changed file
+  t07  the space bar running the command with no change;
+       q quitting
+  t08  -z one-shot, returning the command's exit status
+  t09  EV_TRACE: the kernel's events as entr sees them
+  t10  -x: the status filter created, then formatting
+       an exit-7 ending into words
+  t90  the traps: rename-replacement saves survived;
+       outright deletion ending the watch (status 1);
+       a self-editing command run 1 time in 4 seconds
+       by default, 73 times with -a
+
+Not run, and labelled documented-only wherever the guide
+mentions them:
+
+  * Package installation as a system change (verified by
+    extraction instead), and entr on macOS / the BSDs,
+    where kqueue does inotify's job.
+  * File events over network filesystems.
+  * The neighbours of chapter 11, characterised from
+    their own documentation.

@@ -1,0 +1,12 @@
+$ echo notes.txt | entr -cc sh -c 'echo "RUN at $(date +%T)"'
+# (this transcript was captured through a terminal recorder and is
+#  shown with control characters made visible: ^[ is the escape
+#  character, so ^[[2J erases the screen, ^[[3J erases the
+#  scrollback buffer, and ^[[H moves the cursor to the top)
+
+^[[2J^[[3J^[[HRUN at 11:20:35
+^[[2J^[[3J^[[HRUN at 11:20:37
+^[[2J^[[3J^[[HRUN at 11:20:39
+
+# (the second and third runs each followed a line being
+#  appended to notes.txt; q stopped the watcher)

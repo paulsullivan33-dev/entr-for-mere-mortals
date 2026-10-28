@@ -1,0 +1,75 @@
+entr — the distilled commands
+====================================================================
+Placeholders: <list> is anything that prints filenames, one
+per line; <cmd> is the command to run on a change.
+
+FIRST CONTACT (chapters 3-4)
+--------------------------------------------------------------------
+  sudo apt install entr            # or brew/pkg/pacman/dnf
+  entr </dev/null                  # prints release + usage
+  man entr                         # four pages, worth reading
+
+  echo notes.txt | entr -n wc -l notes.txt
+                                   # -n: no terminal needed
+                                   # runs once at startup,
+                                   # then once per save
+  <list> | entr <cmd>              # the whole tool, in shape
+
+THE LIST (chapter 5)
+--------------------------------------------------------------------
+  ls *.py | entr <cmd>
+  find drafts -name '*.md' | entr <cmd>
+  git ls-files | entr <cmd>
+  find drafts -name '*.md' | entr -np ./build.sh /_
+                                   # -p postpones startup run
+                                   # /_ = file that changed
+                                   # (absolute path)
+
+RESTARTING PROGRAMS (chapter 6)
+--------------------------------------------------------------------
+  echo settings.conf | entr -r ./server
+                                   # SIGTERM, wait, start again
+                                   # space bar restarts by hand
+  echo data.csv | entr -z ./validate.sh; echo $?
+                                   # -z: run once on change,
+                                   # exit with <cmd>'s status
+  ls app.py settings.conf | entr -rz ./server
+                                   # -r and -z together
+
+NEW FILES (chapter 7)
+--------------------------------------------------------------------
+  ls drafts/*.md | entr -dn echo 'watcher running'
+                                   # exits, status 2, when a
+                                   # new file appears
+  ls drafts/*.md | entr -ddn ...   # -dd also notices dotfiles
+  while sleep 0.1; do
+      ls drafts/*.md | entr -d ./build.sh
+  done                             # respawn with a fresh list
+
+SHELLS (chapter 8)
+--------------------------------------------------------------------
+  echo report.sql | entr -cp psql -f /_
+                                   # plain program + arguments
+  <list> | entr sh -c 'make test | head -n 20'
+                                   # explicit shell wrapper
+  <list> | entr -s 'cat drafts/*.md | wc -w'
+                                   # -s: entr's shell mode;
+                                   # changed file is in $0
+
+THE SCREEN (chapter 9)
+--------------------------------------------------------------------
+  <list> | entr -c <cmd>           # clear screen before runs
+  <list> | entr -cc <cmd>          # ... and the scrollback
+  <space>                          # run the command now
+  q                                # quit (status 0)
+  ENTR_STATUS_SCRIPT=~/status.awk <list> | entr -x <cmd>
+                                   # one exit line in words
+                                   # per run; script created
+                                   # as an example if missing
+
+DIAGNOSIS (chapters 2, 12, 13)
+--------------------------------------------------------------------
+  EV_TRACE=1 <list> | entr -np <cmd>
+                                   # print kernel file events
+  echo $?                          # 0 planned stop, 1 broken
+                                   # watch, 2 directory altered

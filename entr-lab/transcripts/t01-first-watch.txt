@@ -1,0 +1,16 @@
+$ cat notes.txt
+Field notes
+-----------
+charged the spare battery
+checked the tyre pressure
+
+$ echo notes.txt | entr -n sh -c 'echo "run at $(date +%T) -- notes.txt has $(wc -l < notes.txt) lines"'
+run at 11:17:05 -- notes.txt has 4 lines
+
+# (a line is appended to notes.txt in another window)
+run at 11:17:07 -- notes.txt has 5 lines
+
+# (another line is appended)
+run at 11:17:09 -- notes.txt has 6 lines
+
+# (Ctrl-C stops the watcher; nothing else was typed)

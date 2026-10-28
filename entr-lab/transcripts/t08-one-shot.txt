@@ -1,0 +1,8 @@
+$ echo notes.txt | entr -nz sh -c 'echo "one-shot run at $(date +%T)"; exit 3' &
+# (a line is appended to notes.txt)
+one-shot run at 11:17:34
+
+$ echo "entr exit status: $?"
+entr exit status: 3
+# (entr ran the command once, on the first change, and then
+#  exited itself, handing back the command's exit status)
